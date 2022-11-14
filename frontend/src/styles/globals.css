@@ -1,0 +1,44 @@
+@tailwind base;
+
+button {
+  @apply text-sm rounded-lg p-2;
+}
+input {
+  @apply p-2 rounded-md border-2 w-full;
+}
+
+.app {
+  @apply w-full flex flex-col items-center gap-y-8;
+}
+
+.title {
+  @apply text-4xl font-bold text-center mt-8;
+}
+
+.todolist {
+  @apply flex flex-col gap-y-3;
+}
+
+.todo {
+  @apply flex items-center gap-x-2;
+}
+.todo-index {
+  @apply text-lg;
+}
+.todo-update {
+  @apply text-white bg-blue-500;
+}
+.todo-delete {
+  @apply text-white bg-red-500;
+}
+
+.newtodo {
+  @apply flex items-center gap-x-2;
+}
+.newtodo-button {
+  @apply bg-green-500 text-white;
+}
+
+
+@tailwind components;
+@tailwind utilities;
