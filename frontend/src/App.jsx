@@ -7,34 +7,34 @@ function App() {
   const [newTodo, setNewTodo] = useState("")
 
   const handleCreate = () => {
-    const newTodos = Array.from(todos)
+    // const newTodos = Array.from(todos)
 
-    newTodos.push(newTodo)
+    // newTodos.push(newTodo)
 
-    setTodos(newTodos)
+    setTodos([...todos, newTodo])
     setNewTodo("")
   }
 
   const handleUpdate = (index, newTodo) => {
-    const newTodos = []
+    // const newTodos = []
 
-    for (let i = 0; i < todos.length; i++) {
-      if (i === index) {
-        newTodos.push(newTodo)
-      } else {
-        newTodos.push(todos[i])
-      }
-    }
+    // for (let i = 0; i < todos.length; i++) {
+    //   if (i === index) {
+    //     newTodos.push(newTodo)
+    //   } else {
+    //     newTodos.push(todos[i])
+    //   }
+    // }
 
-    setTodos(newTodos)
+    setTodos(todos.filter((todo, i) => i === index ? newTodo : todo))
   }
 
   const handleDelete = (index) => {
-    const newTodos = Array.from(todos)
+    // const newTodos = Array.from(todos)
 
-    newTodos.splice(index, 1)
+    // newTodos.splice(index, 1)
 
-    setTodos(newTodos)
+    setTodos(todos.filter((_, i) => i !== index))
   }
 
   return (

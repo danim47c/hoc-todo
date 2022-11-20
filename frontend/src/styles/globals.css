@@ -23,7 +23,7 @@ input {
   @apply flex items-center gap-x-2;
 }
 .todo-index {
-  @apply text-lg;
+  @apply text-lg font-semibold;
 }
 .todo-update {
   @apply text-white bg-blue-500;
