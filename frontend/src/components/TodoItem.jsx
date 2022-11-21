@@ -11,6 +11,8 @@ export const TodoItem = ({ index, todo, onUpdate, onDelete }) => {
     onDelete(index)
   }
 
+  console.log({ todo, newTodo })
+
   return <li className="todo">
     <h4 className="todo-index">
       {index + 1}
@@ -22,7 +24,7 @@ export const TodoItem = ({ index, todo, onUpdate, onDelete }) => {
       onChange={(e) => setNewTodo(e.target.value)}
     />
 
-    <button className="todo-update" onClick={handleUpdate}>Update</button>
+    {todo !== newTodo && <button className="todo-update" onClick={handleUpdate}>Update</button>}
 
     <button className="todo-delete" onClick={handleDelete}>Delete</button>
   </li>

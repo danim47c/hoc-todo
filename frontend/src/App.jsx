@@ -1,8 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TodoItem } from "./components/TodoItem"
+import { api } from "./utils/api"
 
 function App() {
-  const [todos, setTodos] = useState(["test"])
+  const [todos, setTodos] = useState(undefined)
+
+  useEffect(() => {
+    api.get("/todos")
+      .then(({ data }) => {
+        setTodos(data)
+      })
+  }, [])
 
   const [newTodo, setNewTodo] = useState("")
 
@@ -11,8 +19,12 @@ function App() {
 
     // newTodos.push(newTodo)
 
-    setTodos([...todos, newTodo])
-    setNewTodo("")
+    api.post("/todos", {
+      content: newTodo,
+    }).then(({ data }) => {
+      setTodos([...todos, data])
+      setNewTodo("")
+    })
   }
 
   const handleUpdate = (index, newTodo) => {
@@ -26,7 +38,11 @@ function App() {
     //   }
     // }
 
-    setTodos(todos.filter((todo, i) => i === index ? newTodo : todo))
+    api.put(`/todos/${todos[index]._id}`, {
+      content: newTodo
+    }).then(({ data }) => {
+      setTodos(todos.map((todo, i) => i === index ? data : todo))
+    })
   }
 
   const handleDelete = (index) => {
@@ -34,7 +50,10 @@ function App() {
 
     // newTodos.splice(index, 1)
 
-    setTodos(todos.filter((_, i) => i !== index))
+    api.delete(`/todos/${todos[index]._id}`)
+      .then(() => {
+        setTodos(todos.filter((todo, i) => i !== index))
+      })
   }
 
   return (
@@ -43,11 +62,11 @@ function App() {
 
       <ul className="todolist">
         {
-          todos.map((todo, index) => (
+          todos?.map((todo, index) => (
             <TodoItem
-              key={`todo-${index}`}
+              key={`todo-${todo._id}`}
               index={index}
-              todo={todo}
+              todo={todo.content}
               onUpdate={handleUpdate}
               onDelete={handleDelete}
             />
